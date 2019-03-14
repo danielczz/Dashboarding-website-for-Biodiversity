@@ -1,21 +1,13 @@
 function buildMetadata(sample) {
-  // Complete the following function that builds the metadata panel
-  // Use `d3.json` to fetch the metadata for a sample
+    // The following function that builds the metadata panel
     // Use d3 to select the panel with id of `#sample-metadata`
-    
-    // Use `.html("") to clear any existing metadata
-    
-    // Use `Object.entries` to add each key and value pair to the panel
-    // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
     url_Metadata = "/metadata/" + sample;    
 
     var Panel = d3.select("#sample-metadata");
     // Use `.html("") to clear any existing metadata
     Panel.html("");
 
-    // url_Metadata = "/metadata/975";
-
+    // Use `d3.json` to fetch the metadata for a sample
     d3.json(url_Metadata).then((sample_Metadata) => {
       Object.entries(sample_Metadata).forEach(([key, value]) => {       
         //  Lets create a row per content in the sample_Metadata
@@ -30,36 +22,81 @@ function buildMetadata(sample) {
 
 function buildCharts(sample) {
 
+  var Panel_test = d3.select("#sample-data");
+  // Use `.html("") to clear any existing metadata
+  Panel_test.html("");
 
-  var Panel_Test = d3.select("#sample-data");
-  Panel_Test.html("");
+  var datajson = d3.json("/samples/"+ sample);
 
-  var url_samples = ("/samples/") + sample;
+  // var datajson = d3.json("/samples/940");
+  var newlist = [];
 
-  // var url_samples = ("/samples/975");
+  datajson.then((data) => {
 
-  d3.json(url_samples).then((sample_Data) => {
-    Object.entries(sample_Data).forEach(([key, value]) => {       
-      //  Lets create a row per content in the sample_Metadata
-      var row = Panel_Test.append("h6");       
-      //  Lets create the content that goes on the row (With non-breaking spaces)
-      var content = key+':'+'\xa0'+value;       
-      row.text(content);
-    });
+    for (i = 0; i < data.otu_ids.length; i++) { 
+      newlist.push({
+        otu_ids: data.otu_ids[i], 
+        sample_values: data.sample_values[i], 
+        otu_labels: data.otu_labels[i], 
+      });
+    };
+
+    newlist.sort((a,b) => b.sample_values - a.sample_values);
+    var piedata = Object.entries(newlist).slice(0,10).map(entry => entry[1]);
+
+// Use sample_values as the values for the PIE chart
+// Use otu_ids as the labels for the pie chart
+// Use otu_labels as the hovertext for the chart
+
+    var final_ids = [];
+    var final_values = [];
+    var final_labels = [];
+
+
+    console.log(final_ids);
+
+    for (j=0; j<10; j++){
+      final_ids.push(piedata[j].otu_ids);
+      final_values.push(piedata[j].sample_values);
+      final_labels.push(piedata[j].otu_labels);
+    };
+    console.log(Object.keys(piedata));
+    console.log(Object.entries(piedata));
+    console.log(piedata[0].otu_ids);
+
+    console.log(final_ids);
+    console.log(final_values);
+    console.log(final_labels);
+
+    var data = [{
+      values: final_values,
+      labels: final_ids,
+      hovertext: final_labels,
+      hoverinfo: "label+text+value+percent",
+      textinfo: "percent",
+      type: "pie"
+    }];
+  
+    var layout = {
+      height: 350,
+      width: 900,
+      margin: {
+        l: 10,
+        r: 10,
+        b: 10, 
+        t: 10,
+        pad: 5
+      }
+    };
+  
+    Plotly.plot("pie", data, layout);    
+
+    return piedata;
+
   });
 
+};
 
-
-
-  // @TODO: Use `d3.json` to fetch the sample data for the plots
-
-    // @TODO: Build a Bubble Chart using the sample data
-
-    // @TODO: Build a Pie Chart
-
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
-}
 
 function init() {
   // Grab a reference to the dropdown select element
@@ -80,36 +117,13 @@ function init() {
     buildMetadata(firstSample);
   });
 
-  var data = [{
-    values: [19, 26, 55, 88],
-    labels: ["Spotify", "Soundcloud", "Pandora", "Itunes"],
-    type: "pie"
-  }];
-
-  var layout = {
-    height: 600,
-    width: 800
-  };
-
-  Plotly.plot("pie", data, layout);
-  Plotly.plot("gauge", data, layout);
-  Plotly.plot("bubble", data, layout);
-
-
-
-
-
-
-
-
-
-}
+};
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
-}
+};
 
 // Initialize the dashboard
 init();
