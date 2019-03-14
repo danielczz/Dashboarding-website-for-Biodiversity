@@ -11,6 +11,16 @@
 
 <body>
 
+              <!-- Navigation bar -->
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Belly Button Biodiversity Analysis</a>
+          <a style="float: right" class="navbar-dark" style="fontcolor: #0000" href="https://github.com/danielczz/JavaScript-DOM-Methods"><h5>GitHub Repository</h5></a>
+          <a style="float: right" class="navbar-dark" href="https://github.com/danielczz/JavaScript-DOM-Methods/blob/master/README.md"><h5>README direct link</h5></a>
+      </div>
+    </nav>
+
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
@@ -34,31 +44,38 @@
       </div>
 
       <div class="col-md-10">
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Sample Data</h3>
+            <h3 class="panel-title">Top 10 samples for Belly Biodiversity</h3>
           </div>
           <div id="sample-data" class="panel-body"></div>
+
             <div id="pie"></div>
         </div>
       </div>
 
-
-
-      
       <div class="col-md-12">
-        <div id="gauge"></div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Scatter plot</h3>
+          </div>
+          <div id="sample-data" class="panel-body"></div>
+
+            <div id="bubble"></div>
+        </div>
       </div>
 
-    </div>
+     <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Gauge plot</h3>
+          </div>
+          <div id="sample-data" class="panel-body"></div>
 
-  </div>
+            <div id="gauge"></div>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div id="bubble"></div>
-    </div>
-  </div>
 
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
@@ -67,5 +84,19 @@
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
+
+
+      <!-- Footer customizations -->
+    <footer class="footer">
+            <div class="footer-copyright text-center py-3">
+            <br>
+          © 2019 Data analysis:
+            <a href="https://github.com/danielczz/"class="btn btn-bg-primary"> 
+              Powered by Daniel Céspedes
+            </a>
+            <br>
+            <br>
+        </div> 
+    </footer>
 
 </html>

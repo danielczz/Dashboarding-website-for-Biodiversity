@@ -22,16 +22,15 @@ function buildMetadata(sample) {
 
 function buildCharts(sample) {
 
-  var Panel_test = d3.select("#sample-data");
-  // Use `.html("") to clear any existing metadata
-  Panel_test.html("");
+  // Pie Chart
 
   var datajson = d3.json("/samples/"+ sample);
 
-  // var datajson = d3.json("/samples/940");
   var newlist = [];
 
   datajson.then((data) => {
+     
+    var reference = data;
 
     for (i = 0; i < data.otu_ids.length; i++) { 
       newlist.push({
@@ -52,26 +51,19 @@ function buildCharts(sample) {
     var final_values = [];
     var final_labels = [];
 
-
-    console.log(final_ids);
+    // console.log(final_ids);
 
     for (j=0; j<10; j++){
       final_ids.push(piedata[j].otu_ids);
       final_values.push(piedata[j].sample_values);
       final_labels.push(piedata[j].otu_labels);
     };
-    console.log(Object.keys(piedata));
-    console.log(Object.entries(piedata));
-    console.log(piedata[0].otu_ids);
-
-    console.log(final_ids);
-    console.log(final_values);
-    console.log(final_labels);
 
     var data = [{
       values: final_values,
       labels: final_ids,
       hovertext: final_labels,
+      showlegend: false,
       hoverinfo: "label+text+value+percent",
       textinfo: "percent",
       type: "pie"
@@ -89,7 +81,41 @@ function buildCharts(sample) {
       }
     };
   
-    Plotly.plot("pie", data, layout);    
+    Plotly.plot("pie", data, layout);   
+    console.log(reference.otu_ids);
+    console.log(reference.sample_values);
+    console.log(reference.otu_labels);
+
+      // Bubble Chart
+// Use reference.otu_ids for the x values
+// Use reference.sample_values for the y values
+// Use reference.sample_values for the marker size
+// Use reference.otu_ids for the marker colors
+// Use reference.otu_labels for the text values
+
+  // @TODO: Build a Bubble Chart using the sample data      
+  trace = {
+    x: reference.otu_ids,
+    y: reference.sample_values,
+    mode: "markers",
+    name: reference.otu_labels,
+    text: reference.otu_labels,
+    marker: {
+      size: reference.sample_values,
+      color: reference.otu_ids,
+    }              
+  };
+
+    var data = [trace];
+
+    var layout = {
+      title: "Belly Button Bubble Plot",
+      showlegend: false,
+      xaxis: {title:"IDs",},
+      yaxis: {title:"Sample Values"},
+    }
+
+    Plotly.newPlot("bubble", data, layout);
 
     return piedata;
 
