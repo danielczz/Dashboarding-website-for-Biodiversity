@@ -109,7 +109,7 @@ function buildCharts(sample) {
     var data = [trace];
 
     var layout = {
-      title: "Belly Button Bubble Plot",
+      title: "Belly Button Biodiversity Analysis",
       showlegend: false,
       xaxis: {title:"IDs",},
       yaxis: {title:"Sample Values"},
@@ -122,7 +122,6 @@ function buildCharts(sample) {
   });
 
 };
-
 
 function init() {
   // Grab a reference to the dropdown select element
