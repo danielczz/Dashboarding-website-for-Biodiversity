@@ -39,3 +39,7 @@ Deploy your Flask app to Heroku.
 
 1. DOM - _The Document Object Model_ is an application programming interface (API) for HTML and XML documents.
 [_DOM_](https://www.w3.org/TR/DOM-Level-1/introduction.html)
+
+
+## Screencapture of the final application 
+![Landing page](static/Images/screencapture.png)
