@@ -1,6 +1,6 @@
 # A Belly Buton Biodiversity Analysis 
 
-An Heroku App with Flask Application: [Direct link to app](https://github.com/danielczz)
+An Heroku App with Flask Application: [Direct link to app JavaScript](https://github.com/danielczz/Dashboarding-website-for-Biodiversity/blob/master/static/js/app.js)
 
 ## Authors
 * Daniel Cespedes - [LinkedIn](https://www.linkedin.com/in/selinzorob/) - [GitHub](https://github.com/danielczz)
