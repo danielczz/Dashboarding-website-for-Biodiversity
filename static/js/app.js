@@ -93,7 +93,7 @@ function buildCharts(sample) {
 // Use reference.otu_ids for the marker colors
 // Use reference.otu_labels for the text values
 
-  // @TODO: Build a Bubble Chart using the sample data      
+  // Build a Bubble Chart using the sample data      
   trace = {
     x: reference.otu_ids,
     y: reference.sample_values,
